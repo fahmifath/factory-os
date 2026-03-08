@@ -96,7 +96,6 @@ FactoryOS hadir sebagai solusi terpadu untuk perusahaan manufaktur yang ingin me
 | [Inertia.js](https://inertiajs.com) | 1.x | SPA tanpa API terpisah |
 | [Tailwind CSS](https://tailwindcss.com) | 3.x | Styling |
 | [ApexCharts](https://apexcharts.com) | 3.x | Grafik & Visualisasi |
-| [Filament](https://filamentphp.com) | 3.x | Admin Panel Super Admin |
 
 ### Infrastructure
 | Teknologi | Fungsi |
@@ -256,23 +255,6 @@ Pusat informasi dan analitik bisnis.
 ## 👥 Role & Akses
 
 FactoryOS memiliki **6 role** dengan hak akses yang berbeda pada setiap modul.
-
-### Ringkasan Akses
-
-| Modul | Super Admin | Finance | Warehouse | Production | HRD | Operator |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| Auth & User Management | ✅ Full | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Dashboard | ✅ Full | ✅ Full | 👁️ View | 👁️ View | 👁️ View | ❌ |
-| Inventory & Gudang | ✅ Full | 👁️ View | ✅ Full | 👁️ View | ❌ | ❌ |
-| Purchase Order | ✅ Full | ✅ Approve | ✅ Create | ❌ | ❌ | ❌ |
-| Production / WO | ✅ Full | ❌ | 👁️ View | ✅ Full | ❌ | ✅ Input |
-| Finance & Akuntansi | ✅ Full | ✅ Full | ❌ | ❌ | ❌ | ❌ |
-| HR & Karyawan | ✅ Full | ❌ | ❌ | ❌ | ✅ Full | 👁️ Self |
-| Payroll | ✅ Full | ✅ Approve | ❌ | ❌ | ✅ Create | ❌ |
-| Laporan | ✅ Full | ✅ Finance | ✅ Inventory | ✅ Produksi | ✅ HR | ❌ |
-| Activity Log | ✅ Full | ❌ | ❌ | ❌ | ❌ | ❌ |
-
----
 
 ### 🔴 Super Admin
 
@@ -547,97 +529,7 @@ Akses aplikasi di: `http://localhost:8000`
 
 > ⚠️ **Ganti semua password default sebelum deploy ke production!**
 
-### Konfigurasi Email (untuk notifikasi & scheduled report)
-```env
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.mailtrap.io
-MAIL_PORT=2525
-MAIL_USERNAME=your_username
-MAIL_PASSWORD=your_password
-MAIL_FROM_ADDRESS=noreply@factoryos.com
-MAIL_FROM_NAME="FactoryOS"
-```
-
-### Konfigurasi Scheduled Commands
-Tambahkan cron job di server:
-```bash
-* * * * * cd /path/to/factoryos && php artisan schedule:run >> /dev/null 2>&1
-```
-
-Jadwal otomatis yang berjalan:
-- **Setiap hari jam 07:00** — Cek stok kritis, kirim notifikasi ke Warehouse
-- **Setiap hari jam 08:00** — Cek invoice jatuh tempo, kirim notifikasi ke Finance
-- **Setiap tanggal 25** — Notifikasi kontrak karyawan yang berakhir bulan depan
-- **Setiap tanggal 1 jam 06:00** — Kirim ringkasan laporan bulanan ke manajemen
-
----
-
-## 📁 Struktur Direktori
-
-```
-factoryos/
-├── app/
-│   ├── Http/
-│   │   ├── Controllers/
-│   │   │   ├── Auth/
-│   │   │   ├── Inventory/
-│   │   │   ├── Production/
-│   │   │   ├── Finance/
-│   │   │   ├── HR/
-│   │   │   └── Dashboard/
-│   │   ├── Middleware/
-│   │   └── Requests/
-│   ├── Models/
-│   ├── Services/           ← Business logic
-│   ├── Jobs/               ← Background jobs
-│   ├── Notifications/      ← Real-time & email notifications
-│   ├── Exports/            ← Excel exports
-│   └── Console/Commands/   ← Scheduled commands
-├── database/
-│   ├── migrations/
-│   └── seeders/
-├── resources/
-│   └── js/
-│       ├── Pages/          ← Vue pages per modul
-│       ├── Components/     ← Reusable components
-│       └── Layouts/
-├── routes/
-│   ├── web.php
-│   └── auth.php
-└── docs/
-    └── erd.html            ← ERD interaktif
-```
-
----
-
-## 🧪 Testing
-
-```bash
-# Jalankan semua test
-php artisan test
-
-# Jalankan test per modul
-php artisan test --filter=InventoryTest
-php artisan test --filter=PayrollTest
-php artisan test --filter=ProductionTest
-```
-
----
-
-## 📝 API Documentation
-
-FactoryOS menyediakan REST API untuk integrasi dengan sistem eksternal.
-
-```
-Base URL: http://localhost:8000/api/v1
-
-Authentication: Bearer Token (Laravel Sanctum)
-```
-
-Endpoint tersedia untuk semua modul utama. Lihat dokumentasi lengkap di [`docs/api.md`](docs/api.md).
-
----
-
+ 
 ## 🤝 Kontribusi
 
 Kontribusi sangat diterima! Silakan ikuti langkah berikut:
